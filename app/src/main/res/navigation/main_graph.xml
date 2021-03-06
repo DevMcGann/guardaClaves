@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_graph"
-    app:startDestination="@id/loginFragment">
+    app:startDestination="@id/firstTimeFragment">
 
     <fragment
         android:id="@+id/mainFragment"
@@ -18,5 +18,14 @@
         <action
             android:id="@+id/action_loginFragment_to_mainFragment"
             app:destination="@id/mainFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/firstTimeFragment"
+        android:name="com.gsoft.argentina.guardaclaves.ui.firstTime.FirstTimeFragment"
+        android:label="fragment_first_time"
+        tools:layout="@layout/fragment_first_time" >
+        <action
+            android:id="@+id/action_firstTimeFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
     </fragment>
 </navigation>
