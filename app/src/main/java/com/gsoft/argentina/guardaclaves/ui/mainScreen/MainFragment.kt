@@ -69,11 +69,12 @@ class MainFragment : Fragment(R.layout.fragment_main) {
             ) {
                 // Eliminar Button
                 underlayButtons?.add(SwipeHelper.UnderlayButton(
-                    "Eliminar",
+                    "",
                     AppCompatResources.getDrawable(
                         requireContext(),
                         R.drawable.ic_delete
                     ),
+                    //color de fondo y color de texto
                     Color.parseColor("#FF0000"), Color.parseColor("#ffffff"))
                 { pos: Int ->
                     val item = viewModel.allEntidates.value?.get(pos)
@@ -91,7 +92,7 @@ class MainFragment : Fragment(R.layout.fragment_main) {
 
                 //Editar Button
                 underlayButtons?.add(SwipeHelper.UnderlayButton(
-                    "Editar",
+                    "",
                     AppCompatResources.getDrawable(
                         requireContext(),
                         R.drawable.ic_edit
@@ -100,6 +101,7 @@ class MainFragment : Fragment(R.layout.fragment_main) {
                     UnderlayButtonClickListener { pos: Int ->
 
                         val item = viewModel.allEntidates.value?.get(pos)
+
                         val entidad = item?.let { Entidad(it.id, item.titulo, item.usuario, item.password) }
                         val mDialogView = LayoutInflater.from(context!!).inflate(R.layout.dialog_agregar, null)
                         val mBuilder = AlertDialog.Builder(context!!)
@@ -119,6 +121,7 @@ class MainFragment : Fragment(R.layout.fragment_main) {
                         if (entidad != null) {
                             password.text = entidad.password.toEditable()
                         }
+                        Toast.makeText(context, "Entidad:   $entidad", Toast.LENGTH_LONG).show()
 
                         val mAlertDialog = mBuilder.show()
 
@@ -129,7 +132,7 @@ class MainFragment : Fragment(R.layout.fragment_main) {
                                     Entidad(id = it1.id, titulo = nombre.text.toString(),
                                         usuario = usuario.text.toString(), password = password.text.toString())
                                 }
-                            Toast.makeText(context, "MOdificada:   $entidadModificada", Toast.LENGTH_LONG).show()
+                            Toast.makeText(context, "Modificada:   $entidadModificada", Toast.LENGTH_LONG).show()
                             if (entidadModificada != null) {
                                 viewModel.updateEntidad(entidadModificada)
                                 mAlertDialog.dismiss()

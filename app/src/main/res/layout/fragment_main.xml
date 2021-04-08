@@ -11,21 +11,22 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_lista"
-        android:layout_width="379dp"
-        android:layout_height="571dp"
+        android:layout_width="381dp"
+        android:layout_height="657dp"
         android:orientation="vertical"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.407"
+        app:layout_constraintHorizontal_bias="0.466"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.917" />
+        app:layout_constraintVertical_bias="0.945" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/b_agregar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
         android:clickable="true"
         android:src="@android:drawable/ic_input_add"
         app:backgroundTint="#2a9c44"
