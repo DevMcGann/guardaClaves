@@ -11,6 +11,10 @@ class RepositoryImpl (private val dataSource : DataSource): Repository {
         return dataSource.getEtidades()
     }
 
+    override suspend fun getEntidad(id: Int): Entidad {
+       return dataSource.getEntidad(id)
+    }
+
     override suspend fun saveEntidad(entidad: Entidad) {
         return dataSource.saveEntidad(entidad)
     }

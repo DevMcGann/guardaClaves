@@ -188,8 +188,8 @@ public abstract class SwipeHelper extends ItemTouchHelper.SimpleCallback {
 
     private void drawButtons(Canvas c, View itemView, List<UnderlayButton> buffer, int pos, float dX) {
         float right = itemView.getRight();
-        float top = itemView.getTop() + 200 ;
-        float bottom = itemView.getBottom() - 200 ;
+        float top = itemView.getTop() + 450 ;  // controla altura delos containers
+        float bottom = itemView.getBottom() - 450 ;
         float dButtonWidth = (-1) * dX / buffer.size();
 
         for (UnderlayButton button : buffer) {
@@ -256,8 +256,8 @@ public abstract class SwipeHelper extends ItemTouchHelper.SimpleCallback {
                 p.setColor(textColor);
                 p.setTextSize(40);
                 Rect r = new Rect();
-                float cHeight = rect.height() - 200;
-                float cWidth = rect.width() -200 ;
+                float cHeight = rect.height() - 200; //controla alto de los iconos
+                float cWidth = rect.width() - 200 ;
                 p.setTextAlign(Paint.Align.CENTER);
                 p.getTextBounds(text, 0, text.length(), r);
                 float x = cWidth / 2f - r.width() / 2f - r.left;

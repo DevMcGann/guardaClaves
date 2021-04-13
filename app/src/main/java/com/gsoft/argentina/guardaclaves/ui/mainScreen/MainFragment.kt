@@ -5,15 +5,19 @@ import android.content.DialogInterface
 import android.graphics.Color
 import android.os.Bundle
 import android.text.Editable
+import android.util.Log
 import android.view.*
 import android.widget.Button
 import androidx.fragment.app.Fragment
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.appcompat.widget.SearchView
+import androidx.core.view.get
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.RecyclerView
 import com.gsoft.argentina.guardaclaves.R
@@ -26,6 +30,7 @@ import com.gsoft.argentina.guardaclaves.presentation.MainViewModel
 import com.gsoft.argentina.guardaclaves.repository.RepositoryImpl
 import com.gsoft.argentina.guardaclaves.ui.mainScreen.adapter.Adaptador
 import com.gsoft.argentina.guardaclaves.ui.mainScreen.swipe.SwipeHelper
+import kotlinx.coroutines.Job
 import java.util.*
 
 
@@ -46,6 +51,12 @@ class MainFragment : Fragment(R.layout.fragment_main) {
 
     fun String.toEditable(): Editable =  Editable.Factory.getInstance().newEditable(this)
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        (activity as AppCompatActivity).supportActionBar?.show()
+        (activity as AppCompatActivity).supportActionBar?.setDisplayShowTitleEnabled(false)
+        (activity as AppCompatActivity).supportActionBar?.setDisplayShowHomeEnabled(false)
+    }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         setHasOptionsMenu(true)
         super.onViewCreated(view, savedInstanceState)
@@ -60,7 +71,8 @@ class MainFragment : Fragment(R.layout.fragment_main) {
 
 
 
-        ///////////////////////////// coso de botones ///////////////////////
+        ///////////////////////////// swipe de botones ///////////////////////
+        // a futuro, reemplazar esta abominación con algo más claro y escalable!!  //
         object : SwipeHelper(this.requireContext(), binding.rvLista, false) {
 
             override fun instantiateUnderlayButton(
@@ -77,13 +89,22 @@ class MainFragment : Fragment(R.layout.fragment_main) {
                     //color de fondo y color de texto
                     Color.parseColor("#FF0000"), Color.parseColor("#ffffff"))
                 { pos: Int ->
-                    val item = viewModel.allEntidates.value?.get(pos)
-                    val entidad = item?.let { Entidad(it.id, item.titulo, item.usuario, item.password) }
+                    //val item = viewModel.allEntidates.value?.get(pos)
+                    var lista = mutableListOf<Entidad>()
+
+                    if(listaVisible.isNotEmpty()){
+                        lista= listaVisible
+                    }else{
+                        lista=listaReal
+                    }
+
+                    val item : Entidad = lista[pos]
+                    val entidad = item?.let { Entidad(item.id, item.titulo, item.usuario, item.password) }
                     if (entidad != null) {
                         try {
-                            //Toast.makeText(context, "Queres borrar:   $entidad", Toast.LENGTH_LONG).show()
                             viewModel.deleteEntidad(entidad)
                             binding.rvLista.adapter?.notifyItemRemoved(pos)
+                            Toast.makeText(context, "Entidad Eliminada!", Toast.LENGTH_LONG).show()
                         }catch (e: Exception){
                             println("Iba a crashear chinwewencha")
                         }
@@ -100,9 +121,18 @@ class MainFragment : Fragment(R.layout.fragment_main) {
                     Color.parseColor("#127512"), Color.parseColor("#ffffff"),
                     UnderlayButtonClickListener { pos: Int ->
 
-                        val item = viewModel.allEntidates.value?.get(pos)
+                        //val item = viewModel.allEntidates.value?.get(pos)
+                        var lista = mutableListOf<Entidad>()
 
-                        val entidad = item?.let { Entidad(it.id, item.titulo, item.usuario, item.password) }
+                        if(listaVisible.isNotEmpty()){
+                            lista= listaVisible
+                        }else{
+                            lista=listaReal
+                        }
+
+                        val item : Entidad = lista[pos]
+
+                        val entidad = item?.let { Entidad(item.id, item.titulo, item.usuario, item.password) }
                         val mDialogView = LayoutInflater.from(context!!).inflate(R.layout.dialog_agregar, null)
                         val mBuilder = AlertDialog.Builder(context!!)
                             .setView(mDialogView)
@@ -121,7 +151,7 @@ class MainFragment : Fragment(R.layout.fragment_main) {
                         if (entidad != null) {
                             password.text = entidad.password.toEditable()
                         }
-                        Toast.makeText(context, "Entidad:   $entidad", Toast.LENGTH_LONG).show()
+                        // Toast.makeText(context, "Entidad:   $entidad", Toast.LENGTH_LONG).show()
 
                         val mAlertDialog = mBuilder.show()
 
@@ -132,7 +162,7 @@ class MainFragment : Fragment(R.layout.fragment_main) {
                                     Entidad(id = it1.id, titulo = nombre.text.toString(),
                                         usuario = usuario.text.toString(), password = password.text.toString())
                                 }
-                            Toast.makeText(context, "Modificada:   $entidadModificada", Toast.LENGTH_LONG).show()
+                            Toast.makeText(context, "Modificacion Exitosa!", Toast.LENGTH_LONG).show()
                             if (entidadModificada != null) {
                                 viewModel.updateEntidad(entidadModificada)
                                 mAlertDialog.dismiss()
@@ -145,7 +175,6 @@ class MainFragment : Fragment(R.layout.fragment_main) {
                         }
                     }
                 ))
-
             }
         }//BOTONES
 
@@ -171,6 +200,7 @@ class MainFragment : Fragment(R.layout.fragment_main) {
                 //get text from EditTexts of custom layout
                 val entidad = Entidad(id = 0, titulo = nombre.text.toString(), usuario = usuario.text.toString(), password = password.text.toString())
                 viewModel.saveEntidad(entidad)
+                Toast.makeText(context, "Entidad Creada!", Toast.LENGTH_LONG).show()
                 mAlertDialog.dismiss()
             }
 

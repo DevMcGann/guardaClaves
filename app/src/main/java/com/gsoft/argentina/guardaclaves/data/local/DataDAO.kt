@@ -10,6 +10,9 @@ interface DataDAO {
     @Query("SELECT * FROM entidad")
      fun getEntidades(): LiveData<MutableList<Entidad>>
 
+     @Query("SELECT * FROM entidad WHERE id=:id")
+      suspend fun getEntidad(id:Int) : Entidad
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun saveEntidad (entidad : Entidad)
 

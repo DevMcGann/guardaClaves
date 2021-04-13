@@ -11,17 +11,24 @@ import androidx.recyclerview.widget.RecyclerView
 import com.gsoft.argentina.guardaclaves.R
 import com.gsoft.argentina.guardaclaves.core.BaseViewHolder
 import com.gsoft.argentina.guardaclaves.data.model.Entidad
-import com.gsoft.argentina.guardaclaves.databinding.ItemRowBinding
+
 
 class Adaptador(listaDeElementos: MutableList<Entidad>) : RecyclerView.Adapter<Adaptador.EjemploViewHolder>() {
 
 
-    private var lista : MutableList<Entidad> = listaDeElementos
+     private var lista : MutableList<Entidad> = listaDeElementos
+
+    inner class objetoClickado{
+        fun getItemInPosition(position:Int) : Entidad{
+            return lista[position]
+        }
+
+    }
 
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): EjemploViewHolder {
-        val vista = LayoutInflater.from(parent.context).inflate(R.layout.item_row, parent , false)
+        val vista = LayoutInflater.from(parent.context).inflate(R.layout.item_row_card, parent , false)
         return EjemploViewHolder(vista)
     }
 

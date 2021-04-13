@@ -18,8 +18,8 @@
         android:inputType="numberPassword"
         android:maxLength="4"
         android:textAlignment="center"
-        android:textSize="60sp"
         android:textColor="@color/white"
+        android:textSize="60sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -35,32 +35,32 @@
         android:textColor="@color/white"
         android:textSize="18sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.443" />
+        app:layout_constraintBottom_toTopOf="@+id/t_clave"
+        app:layout_constraintEnd_toEndOf="@+id/t_clave"
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintStart_toStartOf="@+id/t_clave"
+        app:layout_constraintTop_toBottomOf="@+id/imageView10"
+        app:layout_constraintVertical_bias="1.0" />
 
     <Button
         android:id="@+id/b_login"
-        android:layout_width="171dp"
-        android:layout_height="75dp"
+        android:layout_width="165dp"
+        android:layout_height="56dp"
         android:background="@drawable/rounded_corners"
         android:text="Login"
         android:textSize="25sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.504"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.737" />
+        app:layout_constraintEnd_toEndOf="@+id/t_clave"
+        app:layout_constraintStart_toStartOf="@+id/t_clave"
+        app:layout_constraintTop_toBottomOf="@+id/t_clave"
+        app:layout_constraintVertical_bias="0.102" />
 
     <TextView
         android:id="@+id/t_pin_incorrecto"
-        android:layout_width="275dp"
+        android:layout_width="0dp"
         android:layout_height="83dp"
+        android:layout_marginBottom="40dp"
         android:gravity="center"
         android:text="PIN INCORRECTO"
         android:textColor="#EA0C0C"
@@ -68,21 +68,20 @@
         android:textStyle="bold"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.925" />
+        app:layout_constraintEnd_toEndOf="@+id/t_clave"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/t_clave" />
 
     <ImageView
-        android:id="@+id/imageView5"
-        android:layout_width="274dp"
-        android:layout_height="250dp"
-        android:src="@drawable/guardalogo"
+        android:id="@+id/imageView10"
+        android:layout_width="464dp"
+        android:layout_height="282dp"
+        android:src="@drawable/logoguardaclaves"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintHorizontal_bias="0.509"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.033" />
+        app:layout_constraintVertical_bias="0.0" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

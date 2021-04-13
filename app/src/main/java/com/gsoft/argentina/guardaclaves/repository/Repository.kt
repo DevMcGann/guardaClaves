@@ -5,7 +5,8 @@ import com.gsoft.argentina.guardaclaves.data.model.Entidad
 
 interface Repository {
 
-     fun getEntidades(): LiveData<MutableList<Entidad>>
+    fun getEntidades(): LiveData<MutableList<Entidad>>
+    suspend fun getEntidad(id:Int):Entidad
     suspend fun saveEntidad(entidad:Entidad)
     suspend fun deleteEntidad(entidad: Entidad)
     suspend fun update(entidad: Entidad)

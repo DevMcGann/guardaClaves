@@ -9,6 +9,10 @@ class DataSource (private val dataDao : DataDAO) {
         return dataDao.getEntidades()
     }
 
+     suspend fun getEntidad(id:Int) : Entidad{
+        return dataDao.getEntidad(id)
+    }
+
     suspend fun saveEntidad(entidad: Entidad){
         return dataDao.saveEntidad(entidad)
     }
